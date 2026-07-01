@@ -1,0 +1,69 @@
+# Video source files (large, keep out of git; document source links in README instead)
+data/videos/**/*.mp4
+data/videos/**/*.mov
+data/videos/**/*.avi
+data/videos/**/*.mkv
+
+# Extracted frames (regenerate via scripts/extract_frames.py)
+data/frames/**/*.jpg
+data/frames/**/*.jpeg
+data/frames/**/*.png
+
+# Raw per-frame auto-labeling tool output (pseudo-label sidecars); superseded
+# by the cleaned YOLO labels in data/labels/*/labels/*.txt, not needed in git
+data/frames/**/*.json
+
+# Keep folder structure via .gitkeep
+!**/.gitkeep
+
+# Model weights (large; link in README or use Git LFS / external storage).
+# Only the final selected checkpoint (best.pt) is committed; other candidate
+# variants trained along the way stay local.
+weights/*.pt
+!weights/.gitkeep
+!weights/best.pt
+
+# Rendered example/demo videos are large and already shared via YouTube
+# links in the README instead of being committed (see section 9)
+examples/*.mp4
+examples/*.mov
+examples/*.avi
+examples/*.mkv
+
+# Ultralytics dataset cache + the train/val split files regenerated on every
+# run by scripts/train.py::build_train_val_split (see data.yaml)
+data/labels/**/*.cache
+data/labels/train/train.txt
+data/labels/train/val.txt
+
+# Training run artifacts from ultralytics (checkpoints, logs, etc.)
+runs/detect/
+runs/train/
+*.ultralytics/
+
+# Base/pretrained checkpoints auto-downloaded by ultralytics into the repo
+# root on first run (e.g. `YOLO("yolo11m.pt")`); re-downloaded automatically,
+# not project output
+/yolo*.pt
+/yolo*.pth
+
+# Auto-labeling tool's local class-list scratch file (X-AnyLabeling)
+/class.txt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/

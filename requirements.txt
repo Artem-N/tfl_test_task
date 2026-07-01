@@ -1,0 +1,19 @@
+# Core detection / training
+ultralytics>=8.3.0
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Video / image IO
+opencv-python>=4.9.0
+
+# Data handling
+numpy>=1.26.0
+pandas>=2.2.0
+pyyaml>=6.0
+
+# Metrics / plotting
+matplotlib>=3.8.0
+scikit-learn>=1.4.0
+
+# Utilities
+tqdm>=4.66.0

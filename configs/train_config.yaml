@@ -1,0 +1,50 @@
+# Training configuration for scripts/train.py
+# Values below are the actual settings used for the reported run; update this
+# file (not train.py) when re-tuning, and keep README.md "Training" section
+# in sync.
+
+model: yolo11m.pt   # Ultralytics YOLO11-medium, pretrained on COCO
+
+data: ../data.yaml
+
+epochs: 100
+imgsz: 960          
+batch: 8             
+device: 0            
+workers: 6
+
+# Train/val split applied to the training-video frames only (data/labels/train).
+# This is NOT the held-out eval clip - that one is never touched during training.
+val_split: 0.20
+seed: 0
+
+patience: 30         # early stopping patience (epochs without val improvement)
+optimizer: auto      # ultralytics picks SGD/AdamW based on epoch count
+lr0: 0.01
+
+project: runs/detect
+name: vehicle_yolo11m
+
+# --- Augmentation ---
+# Deliberately limited to a specific, documented set (everything else that
+# Ultralytics enables by default - mosaic, mixup, copy_paste, shear,
+# perspective, hue jitter, vertical flip - is explicitly turned OFF below so
+# the augmentation profile is exactly what was chosen, not whatever the
+# library defaults to).
+#
+# Note: Ultralytics has no literal "contrast" knob. `hsv_v` is genuinely
+# brightness (value); `hsv_s` (saturation) is used here as the closest
+# built-in stand-in for a mild "contrast"-like color-intensity jitter.
+fliplr: 0.7          # horizontal flip, applied to ~70% of images
+flipud: 0.0          # vertical flip OFF (a flipped road doesn't make sense)
+hsv_h: 0.0           # hue jitter OFF (not requested; avoids odd vehicle-color casts)
+hsv_v: 0.3           # brightness jitter (light; default is 0.4)
+hsv_s: 0.3           # saturation jitter, used as a mild contrast-like proxy (light; default is 0.7)
+degrees: 8.0         # small rotation, +/- degrees
+translate: 0.08      # light translation, +/- fraction of image size (default is 0.1)
+scale: 0.15          # light scale jitter, +/- fraction (default is 0.5)
+shear: 0.0           # OFF (not requested)
+perspective: 0.0     # OFF (not requested)
+mosaic: 0.0          # OFF (not requested; keeps the augmentation set exactly as specified)
+mixup: 0.0           # OFF (not requested)
+copy_paste: 0.0      # OFF (not requested)
