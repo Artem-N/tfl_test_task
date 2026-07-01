@@ -19,7 +19,7 @@ data/frames/**/*.json
 # Model weights (large; link in README or use Git LFS / external storage).
 # Only the final selected checkpoint (best.pt) is committed; other candidate
 # variants trained along the way stay local.
-weights/*.pt
+# weights/*.pt
 !weights/.gitkeep
 !weights/best.pt
 
